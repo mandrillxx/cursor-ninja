@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRuleStore } from '@/lib/store';
-import { generateRuleMarkdown } from '@/app/actions/generate-rules';
+import { generateRuleMarkdown } from '@/actions/generate-rules';
 import {
   Dialog,
   DialogContent,
@@ -31,7 +31,7 @@ export default function RulePreview() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Generate rules starting from the hub node
-  const generateRulesFromHub = () => {
+  const generateRulesFromHub = useCallback(() => {
     // Create a mapping of node IDs to their connected nodes
     const nodeConnections: Record<string, string[]> = {};
 
@@ -101,7 +101,7 @@ export default function RulePreview() {
     const rules = rootRule?.children as CursorRule[] || [] as CursorRule[];
     
     return { rules };
-  };
+  }, [nodes, edges]);
 
   // Update the preview whenever any relevant state changes
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function RulePreview() {
     } catch (error) {
       console.error('Error generating rule preview:', error);
     }
-  }, [nodes, edges]);
+  }, [nodes, edges, generateRulesFromHub]);
 
   // Generate markdown using AI
   const handleGenerateMarkdown = async () => {

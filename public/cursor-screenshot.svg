@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- Background -->
+  <rect width="800" height="450" fill="#1a1a1a" rx="8" ry="8" />
+  
+  <!-- Window controls -->
+  <circle cx="20" cy="20" r="6" fill="#ff5f57" />
+  <circle cx="40" cy="20" r="6" fill="#febc2e" />
+  <circle cx="60" cy="20" r="6" fill="#28c840" />
+
+  <!-- Editor header -->
+  <rect x="0" y="40" width="800" height="1" fill="#333" />
+  <rect x="0" y="41" width="800" height="30" fill="#252525" />
+  <text x="20" y="60" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#999">cursor.ninja - main.ts</text>
+  
+  <!-- Editor sidebar -->
+  <rect x="0" y="71" width="200" height="379" fill="#202020" />
+  
+  <!-- Sidebar items -->
+  <rect x="10" y="90" width="180" height="20" fill="#303030" rx="3" ry="3" />
+  <text x="30" y="104" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ddd">src/</text>
+  
+  <text x="30" y="134" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ddd">components/</text>
+  <text x="30" y="164" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ddd">utils/</text>
+  <text x="30" y="194" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ddd">hooks/</text>
+  <text x="30" y="224" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ddd">api/</text>
+  <text x="30" y="254" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ddd">types/</text>
+  
+  <!-- Main editor content -->
+  <rect x="200" y="71" width="600" height="379" fill="#1e1e1e" />
+  
+  <!-- Line numbers -->
+  <rect x="200" y="71" width="30" height="379" fill="#252525" />
+  <text x="215" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">1</text>
+  <text x="215" y="120" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">2</text>
+  <text x="215" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">3</text>
+  <text x="215" y="160" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">4</text>
+  <text x="215" y="180" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">5</text>
+  <text x="215" y="200" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">6</text>
+  <text x="215" y="220" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">7</text>
+  <text x="215" y="240" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">8</text>
+  <text x="215" y="260" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">9</text>
+  <text x="215" y="280" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">10</text>
+  <text x="215" y="300" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">11</text>
+  <text x="215" y="320" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">12</text>
+  <text x="215" y="340" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">13</text>
+  <text x="215" y="360" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">14</text>
+  <text x="215" y="380" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" text-anchor="end" fill="#666">15</text>
+  
+  <!-- Code content -->
+  <text x="240" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#569cd6">import</text>
+  <text x="290" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">{</text>
+  <text x="300" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#9cdcfe">CursorNinja</text>
+  <text x="380" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">}</text>
+  <text x="390" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#569cd6">from</text>
+  <text x="430" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#ce9178">'@cursor/ninja'</text>
+  <text x="530" y="100" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">;</text>
+  
+  <text x="240" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#569cd6">const</text>
+  <text x="280" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#4fc1ff">cursorInstance</text>
+  <text x="380" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">=</text>
+  <text x="390" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#569cd6">new</text>
+  <text x="420" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#4ec9b0">CursorNinja</text>
+  <text x="500" y="140" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">({</text>
+  
+  <text x="240" y="160" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#9cdcfe">  speed</text>
+  <text x="300" y="160" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">:</text>
+  <text x="310" y="160" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#b5cea8">'ultrafast'</text>
+  <text x="390" y="160" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">,</text>
+  
+  <text x="240" y="180" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#9cdcfe">  precision</text>
+  <text x="300" y="180" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">:</text>
+  <text x="310" y="180" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#b5cea8">'pixel-perfect'</text>
+  <text x="410" y="180" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">,</text>
+  
+  <text x="240" y="200" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#9cdcfe">  theme</text>
+  <text x="300" y="200" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">:</text>
+  <text x="310" y="200" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#b8d7a3">'sage-green'</text>
+  <text x="410" y="200" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">,</text>
+  
+  <text x="240" y="220" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">});</text>
+  
+  <text x="240" y="260" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#569cd6">export function</text>
+  <text x="340" y="260" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#dcdcaa">initCursor</text>
+  <text x="420" y="260" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">() {</text>
+  
+  <text x="240" y="280" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">  </text>
+  <text x="260" y="280" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#4fc1ff">cursorInstance</text>
+  <text x="350" y="280" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">.</text>
+  <text x="360" y="280" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#dcdcaa">activate</text>
+  <text x="420" y="280" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">();</text>
+  
+  <text x="240" y="300" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">  </text>
+  <text x="260" y="300" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c586c0">return</text>
+  <text x="310" y="300" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#4fc1ff">cursorInstance</text>
+  <text x="400" y="300" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">;</text>
+  
+  <text x="240" y="320" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12" fill="#c8c8c8">}</text>
+  
+  <!-- Cursor position -->
+  <rect x="379" y="180" width="2" height="14" fill="#aaffaa">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Sage green accent in the UI -->
+  <rect x="0" y="0" width="5" height="450" fill="#6a8f6d" />
+</svg> 

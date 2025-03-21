@@ -1,4 +1,4 @@
-import { Edge } from "reactflow";
+import type { Edge, Node } from "reactflow";
 
 export type NodeType =
   | "hub"
@@ -35,8 +35,8 @@ export interface RuleProject {
   name: string;
   description: string;
   lastModified: number;
-  nodes: any[];
-  edges: any[];
+  nodes: Node[];
+  edges: Edge[];
 }
 
 export interface RuleEdge {

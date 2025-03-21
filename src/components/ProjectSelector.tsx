@@ -182,6 +182,10 @@ const ProjectSelector = () => {
   
   const activeProject = getActiveProject();
   
+  const zoomToFit = useCallback(() => {
+    reactFlowInstance.fitView({ padding: 0.2 });
+  }, [reactFlowInstance]);
+
   // Sync the current flow state to the active project whenever it changes
   useEffect(() => {
     if (activeProjectId) {
@@ -197,7 +201,7 @@ const ProjectSelector = () => {
   }, [activeProjectId, updateProject, saveCurrentState]);
   
   // Safely create a project without directly accessing the store getter
-  const handleCreateProject = (name: string, description: string) => {
+  const handleCreateProject = useCallback((name: string, description: string) => {
     try {
       const id = createProject(name, description);
       if (id) {
@@ -229,13 +233,9 @@ const ProjectSelector = () => {
     } finally {
       zoomToFit();
     }
-  };
+  }, [createProject, getProject, setStoreData, zoomToFit]);
 	
-  const zoomToFit = useCallback(() => {
-    reactFlowInstance.fitView({ padding: 0.2 });
-  }, [reactFlowInstance]);
-  
-  
+
   // Handle importing project from JSON
   const handleImportProject = (project: RuleProject) => {
     try {
@@ -311,7 +311,7 @@ const ProjectSelector = () => {
         zoomToFit();
       }
     }
-  }, [projects.length, activeProjectId, getProject, setStoreData, zoomToFit]);
+  }, [projects.length, activeProjectId, getProject, setStoreData, zoomToFit, handleCreateProject]);
   
   const handleSelectProject = (project: RuleProject) => {
     // Save current project state before switching

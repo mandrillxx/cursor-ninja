@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Loader2, Info } from 'lucide-react';
 import { toast } from 'sonner';
-import { parseRuleText } from '@/app/actions/generate-rules';
+import { parseRuleText } from '@/actions/generate-rules';
 import { RuleProject } from '@/lib/types';
 import {
   Collapsible,

@@ -140,3 +140,220 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Glossy button */
+  .glossy-button {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .glossy-button::before {
+    content: "";
+  }
+
+  .glossy-button::after {
+    content: "";
+    filter: blur(20px);
+    transform: translateY(10px) scale(0.95);
+    z-index: -1;
+  }
+
+  /* Card with glow on hover */
+  .glossy-card {
+    position: relative;
+    background-color: rgba(var(--dark-300), 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .glossy-card:hover {
+    border-color: rgba(var(--electric-500), 0.2);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(46, 189, 67, 0.2);
+    transform: translateY(-0.25rem);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(
+      to right,
+      white,
+      white,
+      rgba(255, 255, 255, 0.9)
+    );
+  }
+
+  .gradient-text-primary {
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--electric-400)),
+      hsl(var(--electric-500))
+    );
+  }
+
+  /* Section divider */
+  .section-divider {
+    height: 1px;
+    width: 100%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    position: relative;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(46, 189, 67, 0.5),
+      transparent
+    );
+  }
+
+  /* Logo marquee container */
+  .logo-marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+}
+
+@layer utilities {
+  /* Hero pattern with grid */
+  .hero-pattern {
+    background-color: #0a0a0a;
+    background-image: radial-gradient(
+        rgba(46, 189, 67, 0.15) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to right, rgba(10, 10, 10, 0.9), rgba(5, 5, 5, 0.9));
+    background-size: 30px 30px, 100% 100%;
+    background-position: 0 0, 0 0;
+  }
+
+  /* Grid pattern */
+  .grid-pattern {
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center center;
+  }
+
+  /* Hover glow effect */
+  .hover-glow {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(46, 189, 67, 0.4);
+  }
+}
+
+/* Keyframes for animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 0.9;
+    filter: blur(15px);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes textShimmer {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+/* Custom animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce 3s infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(46, 189, 67, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(46, 189, 67, 0.5);
+}

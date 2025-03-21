@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 600" width="300" height="600">
+  <!-- Phone outline -->
+  <rect width="300" height="600" rx="40" ry="40" fill="#222" />
+  <rect x="10" y="10" width="280" height="580" rx="30" ry="30" fill="#111" />
+  
+  <!-- Screen -->
+  <rect x="15" y="15" width="270" height="570" rx="25" ry="25" fill="#050505" />
+  
+  <!-- Status bar -->
+  <rect x="15" y="15" width="270" height="25" rx="5" ry="5" fill="#151515" />
+  
+  <!-- Time -->
+  <text x="40" y="31" font-family="Arial, sans-serif" font-size="12" fill="#fff">9:41</text>
+  
+  <!-- Battery -->
+  <rect x="240" y="21" width="25" height="12" rx="2" ry="2" fill="none" stroke="#fff" stroke-width="1" />
+  <rect x="265" y="24" width="2" height="6" fill="#fff" />
+  <rect x="242" y="23" width="21" height="8" rx="1" ry="1" fill="#6a8f6d" />
+  
+  <!-- App interface -->
+  <!-- Header -->
+  <rect x="15" y="40" width="270" height="50" fill="#1a1a1a" />
+  <circle cx="50" cy="65" r="15" fill="#6a8f6d" />
+  <text x="80" y="71" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff">cursor.ninja</text>
+  
+  <!-- Main content -->
+  <rect x="35" y="110" width="230" height="120" rx="10" ry="10" fill="#222" />
+  
+  <!-- Cursor icon -->
+  <path d="M50 140 L70 180 L80 160 L100 170 L50 140" fill="#6a8f6d" stroke="#fff" stroke-width="1" />
+  
+  <!-- Text -->
+  <text x="120" y="150" font-family="Arial, sans-serif" font-size="14" fill="#fff">Track your cursor</text>
+  <text x="120" y="170" font-family="Arial, sans-serif" font-size="10" fill="#ccc">Fast and precise</text>
+  
+  <!-- Stats card -->
+  <rect x="35" y="250" width="230" height="100" rx="10" ry="10" fill="#222" />
+  <text x="55" y="280" font-family="Arial, sans-serif" font-size="14" fill="#fff">Speed</text>
+  <rect x="55" y="290" width="190" height="6" rx="3" ry="3" fill="#333" />
+  <rect x="55" y="290" width="150" height="6" rx="3" ry="3" fill="#6a8f6d" />
+  
+  <text x="55" y="320" font-family="Arial, sans-serif" font-size="14" fill="#fff">Precision</text>
+  <rect x="55" y="330" width="190" height="6" rx="3" ry="3" fill="#333" />
+  <rect x="55" y="330" width="170" height="6" rx="3" ry="3" fill="#6a8f6d" />
+  
+  <!-- Bottom navigation -->
+  <rect x="15" y="535" width="270" height="50" rx="10" ry="10" fill="#1a1a1a" />
+  
+  <!-- Nav icons -->
+  <circle cx="60" cy="560" r="15" fill="none" stroke="#fff" stroke-width="1" />
+  <circle cx="150" cy="560" r="18" fill="#6a8f6d" />
+  <circle cx="240" cy="560" r="15" fill="none" stroke="#fff" stroke-width="1" />
+  
+  <!-- Button -->
+  <rect x="85" y="460" width="130" height="40" rx="20" ry="20" fill="#6a8f6d" />
+  <text x="120" y="485" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">Start</text>
+</svg> 
