@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRuleStore } from '@/lib/store';
-import { generateRuleMarkdown } from '@/actions/generate-rules';
+import { generateRules } from '@/actions/generate-rules';
 import {
   Dialog,
   DialogContent,
@@ -115,28 +115,23 @@ export default function RulePreview() {
 
   // Generate markdown using AI
   const handleGenerateMarkdown = async () => {
-    try {
-      setIsGenerating(true);
-      setDialogMarkdown(null);
-      
-      const ruleFile = generateRulesFromHub();
-      const result = await generateRuleMarkdown(ruleFile);
-      
-      if (result.success && result.markdown) {
-        console.log('Generated Markdown:', JSON.stringify(result.markdown));
-        setDialogMarkdown(result.markdown);
-        setMarkdown(result.markdown);
-        toast.success('Markdown generated successfully');
-      } else {
-        throw new Error(result.error || 'Failed to generate markdown');
-      }
-    } catch (error) {
-      console.error('Error generating markdown:', error);
-      toast.error('Failed to generate markdown');
-      setIsDialogOpen(false);
-    } finally {
-      setIsGenerating(false);
+    setIsGenerating(true);
+    setDialogMarkdown(null);
+    
+    const ruleFile = generateRulesFromHub();
+    const result = await generateRules(ruleFile);
+    
+    if (result && result.data && result.data.success && !result.serverError) {
+      console.log('Generated Markdown:', JSON.stringify(result.data.success));
+      setDialogMarkdown(result.data.success);
+      setMarkdown(result.data.success);
+      toast.success('Markdown generated successfully');
+    } else {
+      toast.error(result?.serverError?.message || 'Failed to generate markdown');
     }
+    
+    setIsGenerating(false);
+    setIsDialogOpen(false);
   };
 
   // Download markdown

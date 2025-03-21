@@ -73,24 +73,30 @@ API Patterns:
       setIsProcessing(true);
       setError(null);
 
-      const result = await parseRuleText(ruleText, name, description);
+      const result = await parseRuleText({
+        textContent: ruleText,
+        projectName: name,
+        projectDescription: description
+      });
       
-      if (result.success) {
+      if (result && result.data && result.data.success) {
         // Create a complete project object
         const projectData: RuleProject = {
           id: `project-${Date.now()}`,
-          name: result.projectName || name,
-          description: result.projectDescription || description,
+          name: result.data.projectName || name,
+          description: result.data.projectDescription || description,
           lastModified: Date.now(),
-          nodes: result.nodes || [],
-          edges: result.edges || []
+          nodes: result.data.nodes || [],
+          edges: result.data.edges || []
         };
         
         onImport(projectData);
         toast.success('Rules imported and converted successfully');
         onClose();
       } else {
-        setError(result.error || 'Failed to convert rules');
+        const errorMessage = result?.data?.error || 
+                            (result?.serverError ? result.serverError.message : 'Failed to convert rules');
+        setError(errorMessage);
         toast.error('Failed to convert rules');
       }
     } catch (err) {

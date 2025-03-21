@@ -1,9 +1,9 @@
 "use server";
 
 import { generateText, generateObject } from "ai";
-import { CursorRule } from "@/lib/types";
 import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
+import { actionClient } from "@/lib/safe-action";
 
 const openai = createOpenAI({
   // custom settings, e.g.
@@ -11,20 +11,29 @@ const openai = createOpenAI({
   compatibility: "strict", // strict mode, enable when using the OpenAI API
 });
 
-/**
- * Converts rule nodes data to markdown format using AI
- */
-export async function generateRuleMarkdown(ruleData: { rules: CursorRule[] }) {
-  try {
-    // Convert rules to a string representation for the AI prompt
-    const rulesString = JSON.stringify(ruleData, null, 2);
+const generateRulesSchema = z.object({
+  rules: z.array(
+    z.object({
+      type: z.string(),
+      description: z.string(),
+      ruleData: z.record(z.string(), z.unknown()).optional().default({}),
+    })
+  ),
+});
 
-    const result = await generateText({
-      model: openai("gpt-4o-mini"),
-      system:
-        "You are documenting Cursor IDE rules. Your task is to convert JSON rule format into clean, structured Markdown documentation. " +
-        "Do not include any introductory headers about Cursor IDE Rules Documentation.",
-      prompt: `Document each rule with:
+export const generateRules = actionClient
+  .schema(generateRulesSchema)
+  .action(async ({ parsedInput: { rules } }) => {
+    try {
+      // Convert rules to a string representation for the AI prompt
+      const rulesString = JSON.stringify(rules, null, 2);
+
+      const result = await generateText({
+        model: openai("gpt-4o-mini"),
+        system:
+          "You are documenting Cursor IDE rules. Your task is to convert JSON rule format into clean, structured Markdown documentation. " +
+          "Do not include any introductory headers about Cursor IDE Rules Documentation.",
+        prompt: `Document each rule with:
 
 - A heading using the rule name (## level)
 - Clear explanation of what the rule aims to achieve 
@@ -35,22 +44,21 @@ export async function generateRuleMarkdown(ruleData: { rules: CursorRule[] }) {
 Rules to document:
 
 ${rulesString}`,
-    });
+      });
 
-    console.log(result.text);
+      console.log(result.text);
 
-    return {
-      success: true,
-      markdown: String(result.text),
-    };
-  } catch (error) {
-    console.error("Error generating markdown:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
-    };
-  }
-}
+      return {
+        success: result.text,
+      };
+    } catch (error) {
+      console.error("Error generating markdown:", error);
+      return {
+        failure:
+          error instanceof Error ? error.message : "Unknown error occurred",
+      };
+    }
+  });
 
 // Define schemas for node and edge structures
 const positionSchema = z.object({
@@ -93,13 +101,20 @@ const ruleResultSchema = z.object({
 /**
  * Parses natural language text into cursor rule nodes and edges
  */
-export async function parseRuleText(
-  textContent: string,
-  projectName: string,
-  projectDescription: string
-) {
-  try {
-    const systemPrompt = `
+const parseRuleTextSchema = z.object({
+  textContent: z.string(),
+  projectName: z.string(),
+  projectDescription: z.string(),
+});
+
+export const parseRuleText = actionClient
+  .schema(parseRuleTextSchema)
+  .action(
+    async ({
+      parsedInput: { textContent, projectName, projectDescription },
+    }) => {
+      try {
+        const systemPrompt = `
 You are an expert assistant for the Cursor IDE rule system. Your task is to parse natural language descriptions into structured Cursor rule nodes and connections.
 
 The rule system consists of these node types:
@@ -138,7 +153,7 @@ Example layout:
 - Component rules at (300,-100)
 `;
 
-    const prompt = `
+        const prompt = `
 Parse the following text description into Cursor IDE rule nodes and edges. Create appropriate framework nodes for any technologies mentioned, and create semantic/custom/reference nodes for any specific rules, guidelines, or practices mentioned.
 
 Position nodes according to these rules:
@@ -157,62 +172,66 @@ Project Name: ${projectName}
 Project Description: ${projectDescription}
 `;
 
-    // Generate structured output using the Zod schema
-    const result = await generateObject({
-      model: openai("gpt-4o"),
-      system: systemPrompt,
-      prompt: prompt,
-      schema: ruleResultSchema,
-      temperature: 0.1,
-    });
-
-    // Process the generated object
-    if (result) {
-      const { nodes, edges } = result.object;
-
-      // Ensure the hub node exists
-      if (!nodes.some((node) => node.id === "hub")) {
-        nodes.unshift({
-          id: "hub",
-          type: "hub" as const,
-          position: { x: 0, y: 0 },
-          data: {
-            label: "Hub",
-            description: "Central hub for all rules",
-            ruleData: {},
-          },
+        // Generate structured output using the Zod schema
+        const result = await generateObject({
+          model: openai("gpt-4o"),
+          system: systemPrompt,
+          prompt: prompt,
+          schema: ruleResultSchema,
+          temperature: 0.1,
         });
+
+        // Process the generated object
+        if (result) {
+          const { nodes, edges } = result.object;
+
+          // Ensure the hub node exists
+          if (!nodes.some((node) => node.id === "hub")) {
+            nodes.unshift({
+              id: "hub",
+              type: "hub" as const,
+              position: { x: 0, y: 0 },
+              data: {
+                label: "Hub",
+                description: "Central hub for all rules",
+                ruleData: {},
+              },
+            });
+          }
+
+          // Add IDs and defaults for any missing properties
+          const processedNodes = nodes.map((node) => ({
+            ...node,
+            id:
+              node.id ||
+              `node-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+            position: node.position || { x: 0, y: 0 },
+          }));
+
+          // Process edges to ensure they have IDs
+          const processedEdges = edges.map((edge) => ({
+            ...edge,
+            id: edge.id || `edge-${edge.source}-${edge.target}-${Date.now()}`,
+            type: edge.type || "smoothstep",
+          }));
+
+          return {
+            success: true,
+            projectName,
+            projectDescription,
+            nodes: processedNodes,
+            edges: processedEdges,
+          };
+        } else {
+          throw new Error("Failed to generate rule structure");
+        }
+      } catch (error) {
+        console.error("Error generating rule structure:", error);
+        return {
+          success: false,
+          error:
+            error instanceof Error ? error.message : "Unknown error occurred",
+        };
       }
-
-      // Add IDs and defaults for any missing properties
-      const processedNodes = nodes.map((node) => ({
-        ...node,
-        id: node.id || `node-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-        position: node.position || { x: 0, y: 0 },
-      }));
-
-      // Process edges to ensure they have IDs
-      const processedEdges = edges.map((edge) => ({
-        ...edge,
-        id: edge.id || `edge-${edge.source}-${edge.target}-${Date.now()}`,
-        type: edge.type || "smoothstep",
-      }));
-
-      return {
-        success: true,
-        projectName,
-        projectDescription,
-        nodes: processedNodes,
-        edges: processedEdges,
-      };
-    } else {
-      throw new Error("Failed to generate rule structure");
     }
-  } catch (error) {
-    console.error("Error generating rule structure:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
-    };
-  }
-}
+  );
